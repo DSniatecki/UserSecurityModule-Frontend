@@ -1,21 +1,17 @@
 import React, {Component} from 'react';
-import {Button} from "antd";
 import {connect} from "react-redux";
 import {changeUserSignUpModalVisibility} from "../../redux/actions/securityActions";
-import UserSignUpModal from "../../components/modal/UserSignUpModal";
+import UserSignUpModal from "../../components/layout/security/modal/UserSignUpModal";
+import UserSignInForm from "../../components/layout/security/login/UserSignInForm";
 
 
-class UserLoginContainer extends Component {
+
+
+class UserSignInContainer extends Component {
     render() {
         return (
             <div>
-                <Button type="primary" onClick={this.props.changeSignUpModalVisibility}> Open Modal </Button>
-                <hr/>
-                    <br/>
-                <h1> SOME LOGIN LOGIC .... </h1>
-
-
-
+                <UserSignInForm/>
                 <UserSignUpModal/>
             </div>
         );
@@ -33,4 +29,4 @@ const mapDispatchToProps = (dispatch) =>({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserLoginContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UserSignInContainer);

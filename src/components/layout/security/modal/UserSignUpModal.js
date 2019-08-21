@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Modal} from 'antd';
-import {changeUserSignUpModalVisibility} from "../../redux/actions/securityActions";
+import {changeUserSignUpModalVisibility} from "../../../../redux/actions/securityActions";
 import {connect} from "react-redux";
 
 class UserSignUpModal extends Component {
@@ -23,7 +23,6 @@ class UserSignUpModal extends Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                 <p> SOME SIGN UP LOGIC ...</p>
 
                 </Modal>
             </div>

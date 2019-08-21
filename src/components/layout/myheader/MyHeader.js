@@ -1,13 +1,12 @@
 import React from 'react';
-import './MyHeader.css'
-import {Layout} from 'antd';
 
-const { Header} = Layout;
 
 const MyHeader = () =>(
-    <Header className="MyHeader">
-        <p> User Security Module </p>
-    </Header>
+    <div>
+        <h1>
+            User Security Module
+        </h1>
+    </div>
 );
 
 export default MyHeader;
