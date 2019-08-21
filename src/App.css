@@ -1,0 +1,20 @@
+@import '~antd/dist/antd.css';
+
+.layout{
+    height: auto !important;
+    min-height: 100%;
+    background: #fafafa;
+}
+
+.Content{
+    background: #fafafa;
+    min-height: 740px;
+}
+
+
+A{
+    color:white;
+}
+
+
+
