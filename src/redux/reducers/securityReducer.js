@@ -2,6 +2,7 @@ import {securityActionTypes} from "../actions/securityActions";
 
 const initialState = {
     isSignUpModalOpen: false,
+
 };
 
 

@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {changeUserSignUpModalVisibility} from "../../redux/actions/securityActions";
-import UserSignUpModal from "../../components/layout/security/modal/UserSignUpModal";
-import UserSignInForm from "../../components/layout/security/login/UserSignInForm";
 
 
 
 
-class UserSignInContainer extends Component {
+class UserLogin extends Component {
     render() {
         return (
             <div>
-                <UserSignInForm/>
-                <UserSignUpModal/>
+
             </div>
         );
     }
@@ -21,7 +18,7 @@ class UserSignInContainer extends Component {
 
 
 const mapStateToProps = (state) => ({
-
+    isModalOpen: state.security.isSignUpModalOpen
 });
 
 const mapDispatchToProps = (dispatch) =>({
@@ -29,4 +26,5 @@ const mapDispatchToProps = (dispatch) =>({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSignInContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);
+
