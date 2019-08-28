@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {changeUserSignUpModalVisibility} from "../../../redux/actions/securityActions";
+import {changeUserSignUpModalVisibility} from "../../../../redux/actions/securityActions";
 import {UserLoginForm} from "./UserLoginForm";
 import {Button, Icon, Result, Spin} from "antd";
-import UserRegistrationModal from "../registration/UserRegistrationModal";
+import {currentOperation} from "../UserSecurityModule";
 
 
 class UserLogin extends Component {
@@ -40,10 +40,16 @@ class UserLogin extends Component {
         let body = null;
 
         if (!this.state.wasSubmitted) {
-            body = (<UserLoginForm onLogin={this.handleLogin}/>);
+            body = (<div>
+                    <UserLoginForm onLogin={this.handleLogin} onForgotPassword={
+                        () => this.props.onModuleStatusChange(currentOperation.FORGOT_PASSWORD)} />
+                        <Button style={{ width: '100%'}}
+                            onClick={() => this.props.onModuleStatusChange(currentOperation.REGISTRATION)}> Create New Account </Button>
+                </div>
+        );
         } else {
             if (this.state.isLoading) {
-                body = (<div style={{textAlign: 'center', padding: '50px'}}>
+                body = (<div style={{ textAlign: 'center', padding: '80px'}}>
                     <Spin indicator={<Icon type="loading" style={{fontSize: 80}} spin/>}/>
                 </div>);
             }else {
@@ -51,16 +57,17 @@ class UserLogin extends Component {
                     body = (
                         <div style={{textAlign: 'center'}}>
                             <Result status="error"
-                                    style={{padding: 10}}
+                                    style={{padding: '20px'}}
                                     title="Invalid user data!"/>
+                                    <br/>
                                 <Button onClick={this.onTryAgain}> Try to Login Again </Button>
                         </div>);
                 }else if (this.state.hasServerErrorOccurred) {
                     body = (
                         <div style={{textAlign: 'center'}}>
                             <Result status="warning"
-                                    style={{padding: 10}}
-                                    subTitle="There are some problems with your operation. Try again later." />
+                                    style={{padding: '20px'}}
+                                    subTitle="There are some problems with your operation. Try again later."/>
                              <Button onClick={this.onTryAgain}> Try to Login Again </Button>
                         </div>);
                 }else{
@@ -74,19 +81,8 @@ class UserLogin extends Component {
         }
 
         return (
-            <div style={{maxWidth: 400,
-                        margin: 'auto',
-                        border: '1px solid #d5d5d5',
-                        borderRadius: 10,
-                        padding: 23}}>
-                <div style={{ height: 215}}>
-                    {body}
-                </div>
-                <div style={{
-                        maxWidth: 300,
-                        margin: 'auto',}}>
-                    <UserRegistrationModal/>
-                </div>
+            <div>
+                {body}
             </div>
         );
     }

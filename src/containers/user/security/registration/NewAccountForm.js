@@ -15,7 +15,7 @@ const tailFormItemLayout = {
     wrapperCol: {
         xs: {
             span: 24,
-            offset: 0,
+            offset: 5,
         },
         sm: {
             span: 16,
@@ -112,8 +112,8 @@ class RegistrationForm extends Component {
                         ],
                     })(<Input.Password onBlur={this.handleConfirmBlur}/>)}
                 </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">
+                <Form.Item {...tailFormItemLayout} >
+                    <Button type="primary" htmlType="submit" style={{width: '60%'}}>
                         Confirm
                     </Button>
                 </Form.Item>

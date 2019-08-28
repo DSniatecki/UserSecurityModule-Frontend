@@ -15,7 +15,7 @@ class BasicUserLoginForm extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <Form style={{maxWidth: '300px', margin: 'auto'}}
+            <Form
                 onSubmit={this.handleSubmit}
                 className="login-form">
                 <Form.Item>
@@ -44,7 +44,7 @@ class BasicUserLoginForm extends Component {
                         valuePropName: 'checked',
                         initialValue: true,
                     })(<Checkbox>Remember me</Checkbox>)}
-                    <a style={{ float: 'right'}} href="">
+                    <a style={{ float: 'right'}} onClick={this.props.onForgotPassword}>
                         Forgot password
                     </a>
                     <Button style={{width: '100%'}}
@@ -62,8 +62,8 @@ class BasicUserLoginForm extends Component {
 export const UserLoginForm = Form.create({
     mapPropsToFields(props) {
         return {
-            onLogin: Form.createFormField({...props.onLogin, value: props.onLogin.value,
-            }),
+            onLogin: Form.createFormField({...props.onLogin, value: props.onLogin.value,}),
+            onForgotPassword: Form.createFormField({...props.onForgotPassword, value: props.onForgotPassword.value,})
         }
     },
     name: 'normal_login' })(BasicUserLoginForm);

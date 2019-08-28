@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import UserLogin from "./containers/user/login/UserLogin";
+import UserSecurityModule from "./containers/user/security/UserSecurityModule";
 
 
 const App = () =>(
     <div className="App">
-            <UserLogin/>
+            <UserSecurityModule/>
     </div>
 );
 

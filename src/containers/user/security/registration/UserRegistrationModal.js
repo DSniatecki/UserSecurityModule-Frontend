@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal} from 'antd';
-import {changeUserSignUpModalVisibility} from "../../../redux/actions/securityActions";
+import {changeUserSignUpModalVisibility} from "../../../../redux/actions/securityActions";
 import {connect} from "react-redux";
 import UserRegistration from "./UserRegistration";
 
@@ -18,12 +18,10 @@ class UserRegistrationModal extends Component{
     render() {
         return (
             <div>
-                <Button style={{maxWidth: 300, width: '100%'}}
-                        type={this.props.buttonType}
+                <Button style={{ width: '100%'}} type={this.props.buttonType}
                         onClick={this.props.changeSignUpModalVisibility}>
                     Create New Account </Button>
-                <Modal
-                    title="Create new Account"
+                <Modal title="Create new Account"
                     visible={this.props.isModalOpen}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
