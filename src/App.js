@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import UserSignUpModal from "./containers/registration/UserSignUpModal";
+import UserLogin from "./containers/user/login/UserLogin";
 
 
 const App = () =>(
     <div className="App">
-            <UserSignUpModal/>
+            <UserLogin/>
     </div>
 );
 

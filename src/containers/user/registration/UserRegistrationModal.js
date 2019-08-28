@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Modal} from 'antd';
-import {changeUserSignUpModalVisibility} from "../../redux/actions/securityActions";
+import {changeUserSignUpModalVisibility} from "../../../redux/actions/securityActions";
 import {connect} from "react-redux";
-import UserSignUp from "./UserSignUp";
+import UserRegistration from "./UserRegistration";
 
-class UserSignUpModal extends Component{
+class UserRegistrationModal extends Component{
 
 
     handleOk = e => {
@@ -18,16 +18,17 @@ class UserSignUpModal extends Component{
     render() {
         return (
             <div>
-                <Button type="primary" onClick={this.props.changeSignUpModalVisibility}>
-                    Create New Account
-                </Button>
+                <Button style={{maxWidth: 300, width: '100%'}}
+                        type={this.props.buttonType}
+                        onClick={this.props.changeSignUpModalVisibility}>
+                    Create New Account </Button>
                 <Modal
                     title="Create new Account"
                     visible={this.props.isModalOpen}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <UserSignUp/>
+                    <UserRegistration/>
                 </Modal>
             </div>
         );
@@ -44,4 +45,4 @@ const mapDispatchToProps = (dispatch) =>({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSignUpModal);
+export default connect(mapStateToProps, mapDispatchToProps)(UserRegistrationModal);
