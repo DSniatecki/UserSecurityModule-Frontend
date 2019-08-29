@@ -14,10 +14,8 @@ class UserSecurityModule extends Component {
 
     constructor(props){
         super(props);
-        if(this.props.location.hash==='#create-account'){
+        if((this.props.location.hash==='#create-account')){
             this.state = {status: currentOperation.REGISTRATION}
-        }else if((this.props.location.hash==='#recover-password')){
-            this.state = {status: currentOperation.FORGOT_PASSWORD}
         }else {
             this.state = {status: currentOperation.LOGIN}
         }

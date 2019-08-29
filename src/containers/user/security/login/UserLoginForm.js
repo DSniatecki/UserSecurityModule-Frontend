@@ -44,9 +44,8 @@ class BasicUserLoginForm extends Component {
                         valuePropName: 'checked',
                         initialValue: true,
                     })(<Checkbox>Remember me</Checkbox>)}
-                    <a style={{ float: 'right'}} onClick={this.props.onForgotPassword}>
-                        Forgot password
-                    </a>
+                    {/*eslint-disable-next-line*/}
+                    <a style={{ float: 'right'}} onClick={this.props.onForgotPassword} >Forgot password </a>
                     <Button style={{width: '100%'}}
                             type="primary"
                             htmlType="submit"
