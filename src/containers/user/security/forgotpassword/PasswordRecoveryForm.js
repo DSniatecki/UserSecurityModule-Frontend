@@ -93,9 +93,7 @@ class BasicPasswordRecoveryForm extends Component {
                     })(<Input/>)}
                 </Form.Item>
                 <Form.Item {...tailFormItemLayout} >
-                    <Button type="primary" htmlType="submit" style={{width: '60%'}}>
-                        Recover Password
-                    </Button>
+                    <Button type="primary" htmlType="submit" style={{width: '60%'}}> Confirm </Button>
                 </Form.Item>
             </Form>
         );

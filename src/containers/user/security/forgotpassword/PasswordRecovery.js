@@ -32,7 +32,7 @@ class PasswordRecovery extends Component {
         switch (this.state.status) {
             case currentPasswordRecoveryStatus.RECOVERY:
                 return (<div>
-                            <h3 style={{textAlign: 'center', padding:'5px', fontSize: '20px'}}> Confirm </h3>
+                            <h3 style={{textAlign: 'center', padding:'5px', fontSize: '20px'}}> Recover Password </h3>
                             <PasswordRecoveryForm onConfirmRecovery={this.handlePasswordRecovery}/>
                             <Button style={{width: '100%'}}
                                     onClick={() => this.props.onModuleStatusChange(currentOperation.LOGIN)}> Return </Button>

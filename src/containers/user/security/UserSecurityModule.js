@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import UserLogin from "./login/UserLogin";
 import UserRegistration from "./registration/UserRegistration";
 import PasswordRecovery from "./forgotpassword/PasswordRecovery";
-import {Button} from "antd";
 
 export const currentOperation = {
     LOGIN: 1,
@@ -13,13 +12,16 @@ export const currentOperation = {
 
 class UserSecurityModule extends Component {
 
-    state = {
-        status : currentOperation.LOGIN
-    };
-
-    changeToLogin = () =>{
-
-    };
+    constructor(props){
+        super(props);
+        if(this.props.location.hash==='#create-account'){
+            this.state = {status: currentOperation.REGISTRATION}
+        }else if((this.props.location.hash==='#recover-password')){
+            this.state = {status: currentOperation.FORGOT_PASSWORD}
+        }else {
+            this.state = {status: currentOperation.LOGIN}
+        }
+    }
 
     changeModuleStatus = (newStatus) =>{
         this.setState({
@@ -27,19 +29,24 @@ class UserSecurityModule extends Component {
         })
     };
 
-    render() {
-        let body = null;
 
-        if (this.state.status === currentOperation.LOGIN) {
-            body = (<div style={{minHeight: 255}}>
-                        <UserLogin onModuleStatusChange={this.changeModuleStatus}/>
-                    </div>)
-        } else if (this.state.status === currentOperation.REGISTRATION) {
-            body = (<UserRegistration onModuleStatusChange={this.changeModuleStatus} />);
-        } else if (this.state.status === currentOperation.FORGOT_PASSWORD) {
-            body = (<PasswordRecovery onModuleStatusChange={this.changeModuleStatus}/>);
+    renderBody() {
+        switch (this.state.status) {
+            case currentOperation.LOGIN:
+                return (<div style={{minHeight: 255}}>
+                            <UserLogin onModuleStatusChange={this.changeModuleStatus}/>
+                        </div>);
+            case currentOperation.REGISTRATION:
+                return (<UserRegistration onModuleStatusChange={this.changeModuleStatus}/>);
+            case currentOperation.FORGOT_PASSWORD:
+                return (<PasswordRecovery onModuleStatusChange={this.changeModuleStatus}/>);
+            default: return null
         }
+    }
 
+    render() {
+        let body = this.renderBody();
+        console.log(this.props);
         return (
             <div style={{
                 minWidth: '230px',
@@ -47,12 +54,14 @@ class UserSecurityModule extends Component {
                 margin: 'auto',
                 border: '1px solid #d5d5d5',
                 borderRadius: 10,
-                padding: '13px 23px 23px 23px'
+                padding: '10px 23px 23px 23px'
             }}>
                  {body}
             </div>
         );
     }
+
+
 }
 
 export default UserSecurityModule;
