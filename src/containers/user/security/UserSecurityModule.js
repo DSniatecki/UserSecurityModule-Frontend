@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import UserLogin from "./login/UserLogin";
 import UserRegistration from "./registration/UserRegistration";
-import ForgotPassword from "./forgotpassword/ForgotPassword";
+import PasswordRecovery from "./forgotpassword/PasswordRecovery";
 import {Button} from "antd";
 
 export const currentOperation = {
@@ -31,20 +31,13 @@ class UserSecurityModule extends Component {
         let body = null;
 
         if (this.state.status === currentOperation.LOGIN) {
-            body = (
-                <div style={{height: 255}}>
-                    <UserLogin onModuleStatusChange={this.changeModuleStatus}/>
-                </div>)
+            body = (<div style={{minHeight: 255}}>
+                        <UserLogin onModuleStatusChange={this.changeModuleStatus}/>
+                    </div>)
         } else if (this.state.status === currentOperation.REGISTRATION) {
-            body = <div>
-                        <UserRegistration onModuleStatusChange={this.changeModuleStatus} />
-                    </div>
+            body = (<UserRegistration onModuleStatusChange={this.changeModuleStatus} />);
         } else if (this.state.status === currentOperation.FORGOT_PASSWORD) {
-            body = <div>
-                <ForgotPassword/>
-                    <Button style={{ width: '100%'}}
-                        onClick={()=>this.changeModuleStatus(currentOperation.LOGIN)}> Return </Button>
-                </div>
+            body = (<PasswordRecovery onModuleStatusChange={this.changeModuleStatus}/>);
         }
 
         return (
@@ -54,9 +47,9 @@ class UserSecurityModule extends Component {
                 margin: 'auto',
                 border: '1px solid #d5d5d5',
                 borderRadius: 10,
-                padding: 23
+                padding: '13px 23px 23px 23px'
             }}>
-                {body}
+                 {body}
             </div>
         );
     }

@@ -4,64 +4,68 @@ import {NewAccountForm} from "./NewAccountForm";
 import {currentOperation} from "../UserSecurityModule";
 
 
+const currentRegistrationStatus = {
+    CREATING: 'CREATING',
+    WAITING: 'WAITING',
+    SUCCESS: 'SUCCESS',
+    ERROR: 'ERROR',
+};
+
 class UserRegistration extends Component {
 
     state = {
-        wasSubmitted: false,
-        isLoading: false,
-        wasSuccessfulCreated: false,
+        status: currentRegistrationStatus.CREATING
     };
 
 
     handleSubmit = (account) => {
         console.log('>>>', account);
-        this.setState({wasSubmitted: true, isLoading: true}, () => {
+        this.setState({status: currentRegistrationStatus.WAITING}, () => {
             setTimeout(() => {
                 console.log('>>>', account);
-                this.setState({wasSuccessfulCreated: false, isLoading: false});
+                this.setState({status: currentRegistrationStatus.SUCCESS});
             }, 2000);
         });
     };
 
+    renderBody(){
+        switch(this.state.status){
+            case currentRegistrationStatus.CREATING:
+                return (<div>
+                            <h3 style={{textAlign: 'center', padding:'5px', fontSize: '20px'}}> Create New Account </h3>
+                            <NewAccountForm onCreate={this.handleSubmit}/>
+                        </div>);
+            case currentRegistrationStatus.WAITING:
+                return  (<div style={{ textAlign: 'center', padding: '80px'}}>
+                            <Spin indicator={<Icon type="loading" style={{fontSize: 80}} spin/>}/>
+                        </div>);
+            case currentRegistrationStatus.SUCCESS:
+                return (<div style={{textAlign: 'center'}}>
+                            <Result status="success" title="Account Created"
+                                    subTitle="An Activation email will be sent to you shortly." />
+                        </div>);
+            case currentRegistrationStatus.ERROR:
+                return (<div style={{textAlign: 'center' }}>
+                            <Result status="warning" title="Operation failed"
+                                subTitle="There are some problems with your operation. Try again later."/>
+                        </div>);
+            default: return null;
+        }
+    }
 
     render() {
 
-        let body = null;
+        let body = this.renderBody();
 
-        if (!this.state.wasSubmitted) {
-            body = (<div>
-                        <NewAccountForm onCreate={this.handleSubmit}/>
-                    </div>);
-        } else {
-            if (this.state.isLoading) {
-                body = (<div style={{ textAlign: 'center', padding: '80px'}}>
-                            <Spin indicator={<Icon type="loading" style={{fontSize: 80}} spin/>}/>
-                        </div>);
-            } else {
-                if (this.state.wasSuccessfulCreated) {
-                    body = (<div style={{textAlign: 'center'}}>
-                                <Result status="success"
-                                        title="Account Created"
-                                        subTitle="An activation link has been sent to your email."/>
-                            </div>);
-                } else {
-                    body = (<div style={{textAlign: 'center' }}>
-                                <Result status="warning" title="Operation failed"
-                                        subTitle="There are some problems with your operation. Try again later."/>
-                            </div>);
-                }
-            }
-        }
-        if(!this.state.isLoading){
+        if(this.state.status !== currentRegistrationStatus.WAITING){
             body = (<div> {body}
                         <Button style={{width: '100%'}}
                                 onClick={() => this.props.onModuleStatusChange(currentOperation.LOGIN)}> Return </Button>
                     </div>)
         }
-
         return (
             <div>
-                    {body}
+                {body}
             </div>
         );
     }

@@ -24,8 +24,7 @@ const tailFormItemLayout = {
     },
 };
 
-
-class RegistrationForm extends Component {
+class BasicPasswordRecoveryForm extends Component {
 
     state = {
         confirmDirty: false,
@@ -36,26 +35,21 @@ class RegistrationForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onCreate(values);
+                this.props.onConfirmRecovery(values);
             }
         });
     };
 
-    handleConfirmBlur = e => {
-        const {value} = e.target;
-        this.setState({confirmDirty: this.state.confirmDirty || !!value});
-    };
-
-    compareToFirstPassword = (rule, value, callback) => {
+    compareToFirstEmail= (rule, value, callback) => {
         const {form} = this.props;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Passwords that you enter are inconsistent!');
+        if (value && value !== form.getFieldValue('email')) {
+            callback('E-mails that you enter are inconsistent!');
         } else {
             callback();
         }
     };
 
-    validateToNextPassword = (rule, value, callback) => {
+    validateToNextEmail = (rule, value, callback) => {
         const {form} = this.props;
         if (value && this.state.confirmDirty) {
             form.validateFields(['confirm'], {force: true});
@@ -63,16 +57,12 @@ class RegistrationForm extends Component {
         callback();
     };
 
+
     render() {
         const {getFieldDecorator} = this.props.form;
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                <Form.Item label="Nickname">
-                    {getFieldDecorator('nickname', {
-                        rules: [{required: true, message: 'Please input your nickname!', whitespace: true}],
-                    })(<Input/>)}
-                </Form.Item>
-                <Form.Item label="E-mail">
+                <Form.Item label="E-mail" hasFeedback>
                     {getFieldDecorator('email', {
                         rules: [
                             {
@@ -83,38 +73,28 @@ class RegistrationForm extends Component {
                                 required: true,
                                 message: 'Please input your E-mail!',
                             },
+                            {
+                                validator: this.validateToNextEmail,
+                            },
                         ],
                     })(<Input/>)}
                 </Form.Item>
-                <Form.Item label="Password" hasFeedback>
-                    {getFieldDecorator('password', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                            {
-                                validator: this.validateToNextPassword,
-                            },
-                        ],
-                    })(<Input.Password/>)}
-                </Form.Item>
-                <Form.Item label="Confirm Password" hasFeedback>
+                <Form.Item label="Confirm E-mail" hasFeedback>
                     {getFieldDecorator('confirm', {
                         rules: [
                             {
                                 required: true,
-                                message: 'Please confirm your password!',
+                                message: 'Please Confirm your E-mail!',
                             },
                             {
-                                validator: this.compareToFirstPassword,
+                                validator: this.compareToFirstEmail,
                             },
                         ],
-                    })(<Input.Password onBlur={this.handleConfirmBlur}/>)}
+                    })(<Input/>)}
                 </Form.Item>
                 <Form.Item {...tailFormItemLayout} >
                     <Button type="primary" htmlType="submit" style={{width: '60%'}}>
-                        Confirm
+                        Recover Password
                     </Button>
                 </Form.Item>
             </Form>
@@ -122,12 +102,12 @@ class RegistrationForm extends Component {
     }
 }
 
-export const NewAccountForm = Form.create({
+export const PasswordRecoveryForm = Form.create({
     mapPropsToFields(props) {
         return {
-            onCreate: Form.createFormField({...props.onCreate, value: props.onCreate.value,
+            onConfirmRecovery: Form.createFormField({...props.onConfirmRecovery, value: props.onConfirmRecovery.value,
             }),
         }
     },
     name: 'register',
-    })(RegistrationForm);
+})(BasicPasswordRecoveryForm);
