@@ -1,28 +1,7 @@
 import React, {Component} from 'react';
-import {Button, Form, Input,} from 'antd';
-
-const formItemLayout = {
-    labelCol: {
-        xs: {span: 24},
-        sm: {span: 8},
-    },
-    wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 16},
-    },
-};
-const tailFormItemLayout = {
-    wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 5,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
-    },
-};
+import {Button, Checkbox, Form, Input,} from 'antd';
+import {formItemLayout, tailFormAgreementCheckBoxLayout, tailFormItemLayout} from "./NewAccountFormLayout";
+import AgreementModal from "../../../../components/layout/AgreementModal";
 
 
 class RegistrationForm extends Component {
@@ -63,8 +42,18 @@ class RegistrationForm extends Component {
         callback();
     };
 
+    checkCheckBox = (rule, value, callback) => {
+        console.log(value);
+        if (!value) {
+            callback('Please confirm reading the agreement!');
+        } else {
+            callback();
+        }
+    };
+
     render() {
         const {getFieldDecorator} = this.props.form;
+
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Nickname">
@@ -99,7 +88,7 @@ class RegistrationForm extends Component {
                         ],
                     })(<Input.Password/>)}
                 </Form.Item>
-                <Form.Item label="Confirm Password" hasFeedback>
+                <Form.Item label="Confirm Password" hasFeedback >
                     {getFieldDecorator('confirm', {
                         rules: [
                             {
@@ -111,6 +100,18 @@ class RegistrationForm extends Component {
                             },
                         ],
                     })(<Input.Password onBlur={this.handleConfirmBlur}/>)}
+                </Form.Item>
+                <Form.Item {...tailFormAgreementCheckBoxLayout}>
+                    {getFieldDecorator('agreement', {
+                        valuePropName: 'checked',
+                        rules: [
+                            { validator: this.checkCheckBox }
+                        ]
+                    })(
+                        <Checkbox>
+                            <div style={{display: 'inline'}}> I have read the <AgreementModal/> </div>
+                        </Checkbox>,
+                    )}
                 </Form.Item>
                 <Form.Item {...tailFormItemLayout} >
                     <Button type="primary" htmlType="submit" style={{width: '60%'}}>

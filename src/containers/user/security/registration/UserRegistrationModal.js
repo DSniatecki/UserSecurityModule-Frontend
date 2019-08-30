@@ -18,6 +18,7 @@ class UserRegistrationModal extends Component{
     render() {
         return (
             <div>
+                <a href="" onClick={this.props.changeSignUpModalVisibility}>>agreement</a>
                 <Button style={{ width: '100%'}} type={this.props.buttonType}
                         onClick={this.props.changeSignUpModalVisibility}>
                     Create New Account </Button>

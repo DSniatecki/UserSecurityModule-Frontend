@@ -59,10 +59,9 @@ class UserLogin extends Component {
             default: return null;
         }
     }
-
     render() {
         const body = this.renderBody();
-
+        console.log(this.props);
         return (
             <div>
                 {body}

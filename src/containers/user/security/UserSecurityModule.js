@@ -44,7 +44,7 @@ class UserSecurityModule extends Component {
 
     render() {
         let body = this.renderBody();
-        console.log(this.props);
+
         return (
             <div style={{
                 minWidth: '230px',
