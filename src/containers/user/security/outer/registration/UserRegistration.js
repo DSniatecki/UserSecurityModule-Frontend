@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Button, Icon, Result, Spin} from "antd";
 import {NewAccountForm} from "./NewAccountForm";
 import {currentOperation} from "../UserFrontSecurityModule";
+import {withRouter} from "react-router-dom";
 
 
 const currentRegistrationStatus = {
@@ -54,14 +55,21 @@ class UserRegistration extends Component {
     }
 
     render() {
-
+        console.log(this.props)
         let body = this.renderBody();
 
         if(this.state.status !== currentRegistrationStatus.WAITING){
-            body = (<div> {body}
-                        <Button style={{width: '100%'}}
+            if(this.props.location.hash ==='') {
+                body = (<div> {body}
+                            <Button style={{width: '100%'}}
                                 onClick={() => this.props.onModuleStatusChange(currentOperation.LOGIN)}> Return </Button>
-                    </div>)
+                        </div>)
+            }else{
+                body = (<div> {body}
+                            <Button style={{width: '100%'}}
+                                    onClick={() => this.props.history.replace('/')}> Return To Home Page </Button>
+                        </div>)
+            }
         }
         return (
             <div>
@@ -71,4 +79,4 @@ class UserRegistration extends Component {
     }
 }
 
-export default UserRegistration;
+export default withRouter(UserRegistration);

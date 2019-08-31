@@ -122,6 +122,10 @@ class RegistrationForm extends Component {
                                 message: 'Please confirm your password!',
                             },
                             {
+                                max: 40,
+                                message: 'Cannot contain more than 40 characters!',
+                            },
+                            {
                                 validator: this.compareToFirstPassword,
                             },
                         ],

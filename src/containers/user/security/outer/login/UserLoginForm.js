@@ -42,8 +42,8 @@ class BasicUserLoginForm extends Component {
                 <Form.Item style={{ marginBottom: 8 }}>
                     {getFieldDecorator('remember', {
                         valuePropName: 'checked',
-                        initialValue: true,
-                    })(<Checkbox>Remember me</Checkbox>)}
+                        initialValue: false,
+                    })(<Checkbox disabled>Remember me</Checkbox>)}
                     {/*eslint-disable-next-line*/}
                     <a style={{ float: 'right'}} onClick={this.props.onForgotPassword} >Forgot password </a>
                     <Button style={{width: '100%'}}
