@@ -58,7 +58,21 @@ class RegistrationForm extends Component {
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Nickname">
                     {getFieldDecorator('nickname', {
-                        rules: [{required: true, message: 'Please input your nickname!', whitespace: true}],
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your nickname!',
+                                whitespace: true
+                            },
+                            {
+                                min: 4,
+                                message: 'Must contain at least 4 characters!',
+                            },
+                            {
+                                max: 20,
+                                message: 'Cannot contain more than 20 characters!',
+                            }
+                    ],
                     })(<Input/>)}
                 </Form.Item>
                 <Form.Item label="E-mail">
@@ -72,6 +86,10 @@ class RegistrationForm extends Component {
                                 required: true,
                                 message: 'Please input your E-mail!',
                             },
+                            {
+                                max: 80,
+                                message: 'Cannot contain more than 80 characters!',
+                            }
                         ],
                     })(<Input/>)}
                 </Form.Item>
@@ -83,8 +101,16 @@ class RegistrationForm extends Component {
                                 message: 'Please input your password!',
                             },
                             {
-                                validator: this.validateToNextPassword,
+                                pattern: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$',
+                                message: 'Must contain at least 8 characters, one letter and one number!'
                             },
+                            {
+                                max: 40,
+                                message: 'Cannot contain more than 40 characters!',
+                            },
+                            {
+                                validator: this.validateToNextPassword,
+                            }
                         ],
                     })(<Input.Password/>)}
                 </Form.Item>
