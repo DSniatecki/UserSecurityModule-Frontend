@@ -1,1 +1,1 @@
-Frontend application created with React. It allows users to sign in / sign up.
+[Main project] Frontend application created with React. It is a client for SellYourCar-Server
