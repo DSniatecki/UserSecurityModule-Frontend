@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {currentOperation} from "../UserSecurityModule";
+import {currentOperation} from "../UserFrontSecurityModule";
 import {Button, Icon, Result, Spin} from "antd";
 import {PasswordRecoveryForm} from "./PasswordRecoveryForm";
 

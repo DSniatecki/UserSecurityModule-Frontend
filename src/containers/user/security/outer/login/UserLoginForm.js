@@ -15,7 +15,7 @@ class BasicUserLoginForm extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <Form
+            <Form   style={{width: '100%'}}
                 onSubmit={this.handleSubmit}
                 className="login-form">
                 <Form.Item>

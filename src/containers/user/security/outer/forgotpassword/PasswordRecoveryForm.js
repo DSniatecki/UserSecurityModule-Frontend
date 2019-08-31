@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, Input,} from 'antd';
+import {Button, Form, Icon, Input, Tooltip,} from 'antd';
 
 const formItemLayout = {
     labelCol: {
@@ -40,7 +40,7 @@ class BasicPasswordRecoveryForm extends Component {
         });
     };
 
-    compareToFirstEmail= (rule, value, callback) => {
+    compareToFirstEmail = (rule, value, callback) => {
         const {form} = this.props;
         if (value && value !== form.getFieldValue('email')) {
             callback('E-mails that you enter are inconsistent!');
@@ -62,16 +62,25 @@ class BasicPasswordRecoveryForm extends Component {
         const {getFieldDecorator} = this.props.form;
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                <Form.Item label="E-mail" hasFeedback>
+                <Form.Item label={
+                    <span>
+                        E-Mail <Tooltip title="An email that is assigned to your account.">
+                                        <Icon type="question-circle-o"/>
+                                      </Tooltip> </span>
+                } hasFeedback>
                     {getFieldDecorator('email', {
                         rules: [
+                            {
+                                required: true,
+                                message: 'Please input your E-mail!',
+                            },
                             {
                                 type: 'email',
                                 message: 'The input is not valid E-mail!',
                             },
                             {
-                                required: true,
-                                message: 'Please input your E-mail!',
+                                max: 40,
+                                message: 'Cannot contain more than 40 characters!',
                             },
                             {
                                 validator: this.validateToNextEmail,
@@ -103,7 +112,8 @@ class BasicPasswordRecoveryForm extends Component {
 export const PasswordRecoveryForm = Form.create({
     mapPropsToFields(props) {
         return {
-            onConfirmRecovery: Form.createFormField({...props.onConfirmRecovery, value: props.onConfirmRecovery.value,
+            onConfirmRecovery: Form.createFormField({
+                ...props.onConfirmRecovery, value: props.onConfirmRecovery.value,
             }),
         }
     },

@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {UserLoginForm} from "./UserLoginForm";
 import {Button, Icon, Result, Spin} from "antd";
-import {currentOperation} from "../UserSecurityModule";
+import {currentOperation} from "../UserFrontSecurityModule";
+import {authenticateUser} from "../../../../../redux/actions/securityActions";
+import {withRouter} from "react-router-dom";
 
 const currentLoginStatus = {
     LOGIN: 'LOGIN',
@@ -23,7 +25,8 @@ class UserLogin extends Component {
         console.log('>>>', user);
         this.setState({status: currentLoginStatus.WAITING}, () => {
             setTimeout(() => {
-                this.setState({status: currentLoginStatus.INVALID_DATA});
+                this.props.authenticateUser('123');
+                this.props.history.replace('/');
             }, 2000);
         });
     };
@@ -61,6 +64,7 @@ class UserLogin extends Component {
     }
     render() {
         const body = this.renderBody();
+        console.log('login props');
         console.log(this.props);
         return (
             <div>
@@ -71,14 +75,9 @@ class UserLogin extends Component {
 }
 
 
-const mapStateToProps = (state) => ({
-    // isModalOpen: state.security.isSignUpModalOpen
-});
-
 const mapDispatchToProps = (dispatch) =>({
-    // changeModalVisiblity: () => dispatch(changeUserSignUpModalVisibility())
+    authenticateUser: (receivedSecurityToken) => dispatch(authenticateUser(receivedSecurityToken))
 });
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);
-
+const userLogin = connect(null, mapDispatchToProps)(UserLogin);
+export default withRouter(userLogin);

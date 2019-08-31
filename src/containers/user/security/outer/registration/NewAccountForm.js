@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Checkbox, Form, Input,} from 'antd';
 import {formItemLayout, tailFormAgreementCheckBoxLayout, tailFormItemLayout} from "./NewAccountFormLayout";
-import AgreementModal from "../../../../components/layout/AgreementModal";
+import AgreementModal from "../../../../../components/layout/AgreementModal";
 
 
 class RegistrationForm extends Component {

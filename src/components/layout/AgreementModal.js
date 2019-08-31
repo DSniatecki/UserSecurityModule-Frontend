@@ -27,6 +27,7 @@ class AgreementModal extends Component {
     render() {
         return (
             <div style={{display: 'inline'}}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a onClick={this.showModal} >agreement</a>
 
                 <Modal

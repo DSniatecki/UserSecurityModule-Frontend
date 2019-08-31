@@ -1,17 +1,24 @@
 import {securityActionTypes} from "../actions/securityActions";
 
 const initialState = {
-    isSignUpModalOpen: false,
-
+    isUserAuthenticated: false,
+    securityToken: '',
 };
 
 
 const securityReducer = (state = initialState, action) =>{
     switch(action.type){
-        case securityActionTypes.CHANGE_SIGN_UP_MODAL_VISIBILITY:
+        case securityActionTypes.AUTHENTICATE_USER:
             return{
                 ...state,
-                isSignUpModalOpen: !state.isSignUpModalOpen
+                isUserAuthenticated: true,
+                securityToken: action.securityToken
+            };
+        case securityActionTypes.LOGOUT_USER:
+            return{
+                ...state,
+                isUserAuthenticated: false,
+                securityToken: ''
             };
         default:
             return state;

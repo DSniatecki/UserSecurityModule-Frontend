@@ -10,7 +10,7 @@ export const currentOperation = {
 };
 
 
-class UserSecurityModule extends Component {
+class UserFrontSecurityModule extends Component {
 
     constructor(props){
         super(props);
@@ -43,18 +43,20 @@ class UserSecurityModule extends Component {
     }
 
     render() {
+        console.log(this.componentWidth);
         let body = this.renderBody();
-
+        console.log(this.props);
         return (
-            <div style={{
+            <div
+                style={{
                 minWidth: '230px',
-                maxWidth: '500px',
+                maxWidth: '600px',
                 margin: 'auto',
                 border: '1px solid #d5d5d5',
                 borderRadius: 10,
                 padding: '10px 23px 23px 23px'
             }}>
-                 {body}
+                {body}
             </div>
         );
     }
@@ -62,4 +64,4 @@ class UserSecurityModule extends Component {
 
 }
 
-export default UserSecurityModule;
+export default UserFrontSecurityModule;

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Button, Icon, Result, Spin} from "antd";
 import {NewAccountForm} from "./NewAccountForm";
-import {currentOperation} from "../UserSecurityModule";
+import {currentOperation} from "../UserFrontSecurityModule";
 
 
 const currentRegistrationStatus = {

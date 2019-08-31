@@ -1,18 +1,23 @@
-// import axios from "axios";
 
 export const securityActionTypes ={
-    CHANGE_SIGN_UP_MODAL_VISIBILITY: 'CHANGE_SIGN_UP_MODAL_VISIBILITY'
+    AUTHENTICATE_USER: 'AUTHENTICATE_USER',
+    LOGOUT_USER: 'LOGOUT_USER'
 };
 
-export const changeUserSignUpModalVisibility = () =>({
-    type: securityActionTypes.CHANGE_SIGN_UP_MODAL_VISIBILITY
+export const authenticateUser = (receivedSecurityToken) =>({
+    type: securityActionTypes.AUTHENTICATE_USER,
+    securityToken: receivedSecurityToken
 });
 
+export const logoutUser = () =>({
+    type: securityActionTypes.LOGOUT_USER,
+});
 
+// MIDDLEWATE
 // export const handlePageChange = (pageNumber)=>{
 //     return (dispatch, getState) =>{
 //         dispatch(changePageNumber(pageNumber));
-//         const filters = getState().auction.filters;
+//         const filters = getState().users.filters;
 //         const path = `
 //         axios.get(``).then((response) => {
 //             dispatch(updateAuctionList(response.data.content))
