@@ -25,7 +25,7 @@ class UserLogin extends Component {
         console.log('>>>', user);
         this.setState({status: currentLoginStatus.WAITING}, () => {
             setTimeout(() => {
-                this.props.authenticateUser('123');
+                this.props.authenticateUser('123', user.username );
                 this.props.history.replace('/');
             }, 2000);
         });
@@ -76,7 +76,7 @@ class UserLogin extends Component {
 
 
 const mapDispatchToProps = (dispatch) =>({
-    authenticateUser: (receivedSecurityToken) => dispatch(authenticateUser(receivedSecurityToken))
+    authenticateUser: (receivedSecurityToken, username) => dispatch(authenticateUser(receivedSecurityToken, username))
 });
 
 const userLogin = connect(null, mapDispatchToProps)(UserLogin);

@@ -49,8 +49,8 @@ class UserFrontSecurityModule extends Component {
         return (
             <div
                 style={{
-                minWidth: '230px',
-                maxWidth: '600px',
+                minWidth: '280px',
+                maxWidth: '500px',
                 margin: 'auto',
                 border: '1px solid #d5d5d5',
                 borderRadius: 10,

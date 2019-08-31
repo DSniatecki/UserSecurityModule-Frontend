@@ -4,9 +4,10 @@ export const securityActionTypes ={
     LOGOUT_USER: 'LOGOUT_USER'
 };
 
-export const authenticateUser = (receivedSecurityToken) =>({
+export const authenticateUser = (receivedSecurityToken, username) =>({
     type: securityActionTypes.AUTHENTICATE_USER,
-    securityToken: receivedSecurityToken
+    securityToken: receivedSecurityToken,
+    username: username
 });
 
 export const logoutUser = () =>({

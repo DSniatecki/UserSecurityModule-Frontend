@@ -1,6 +1,6 @@
 import {logoutUser} from "../../../../redux/actions/securityActions";
 import {connect} from "react-redux";
-import {Button, Icon, message} from "antd";
+import {Button, message} from "antd";
 import {withRouter} from "react-router-dom";
 import React from "react";
 

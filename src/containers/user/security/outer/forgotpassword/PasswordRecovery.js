@@ -23,7 +23,7 @@ class PasswordRecovery extends Component {
     handlePasswordRecovery= (email) =>{
         this.setState({status: currentPasswordRecoveryStatus.WAITING}, () => {
             setTimeout(() => {
-                this.setState({status: currentPasswordRecoveryStatus.SUCCESS});
+                this.setState({status: currentPasswordRecoveryStatus.ERROR});
             }, 2000);
         });
     };
