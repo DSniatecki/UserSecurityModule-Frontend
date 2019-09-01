@@ -6,6 +6,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from "./redux/store/store";
 import {BrowserRouter} from "react-router-dom";
+import axios from "axios";
+
+axios.defaults.baseURL=""//baseURL
 
 const app =(
     <BrowserRouter>

@@ -31,7 +31,7 @@ class UserFrontSecurityModule extends Component {
     renderBody() {
         switch (this.state.status) {
             case currentOperation.LOGIN:
-                return (<div style={{minHeight: 255}}>
+                return (<div>
                             <UserLogin onModuleStatusChange={this.changeModuleStatus}/>
                         </div>);
             case currentOperation.REGISTRATION:

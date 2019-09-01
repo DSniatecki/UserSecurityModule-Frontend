@@ -53,11 +53,12 @@ class RegistrationForm extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-
+        console.log(this.props);
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Nickname">
                     {getFieldDecorator('nickname', {
+                        initialValue: this.props.currentAccount.nickname,
                         rules: [
                             {
                                 required: true,
@@ -77,6 +78,7 @@ class RegistrationForm extends Component {
                 </Form.Item>
                 <Form.Item label="E-mail">
                     {getFieldDecorator('email', {
+                        initialValue: this.props.currentAccount.email,
                         rules: [
                             {
                                 type: 'email',
@@ -95,6 +97,7 @@ class RegistrationForm extends Component {
                 </Form.Item>
                 <Form.Item label="Password" hasFeedback>
                     {getFieldDecorator('password', {
+                        initialValue: this.props.currentAccount.password,
                         rules: [
                             {
                                 required: true,
@@ -116,6 +119,7 @@ class RegistrationForm extends Component {
                 </Form.Item>
                 <Form.Item label="Confirm Password" hasFeedback >
                     {getFieldDecorator('confirm', {
+                        initialValue: this.props.currentAccount.confirm,
                         rules: [
                             {
                                 required: true,
@@ -133,6 +137,7 @@ class RegistrationForm extends Component {
                 </Form.Item>
                 <Form.Item {...tailFormAgreementCheckBoxLayout}>
                     {getFieldDecorator('agreement', {
+                        initialValue: this.props.currentAccount.agreement,
                         valuePropName: 'checked',
                         rules: [
                             { validator: this.checkCheckBox }
@@ -156,8 +161,8 @@ class RegistrationForm extends Component {
 export const NewAccountForm = Form.create({
     mapPropsToFields(props) {
         return {
-            onCreate: Form.createFormField({...props.onCreate, value: props.onCreate.value,
-            }),
+            currentAccount: Form.createFormField({...props.currentAccount, value: props.currentAccount.value}),
+            onCreate: Form.createFormField({...props.onCreate, value: props.onCreate.value }),
         }
     },
     name: 'register',
