@@ -26,53 +26,86 @@ class UserLogin extends Component {
         this.setState({status: currentLoginStatus.WAITING}, () => {
             axios.post('/users/signin', {username: user.username, password: user.password})
                 .then((response) => {
-                    this.props.authenticateUser('123', user.username);
-                    message.success('You have been successfully logged in.', 2);
-                    this.props.history.replace('/');
+                    this.handleLoginSuccess(response, user);
                 })
                 .catch((error) => {
-                    if (error.response.status === 401 || error.response.status===400) {
-                        this.setState({status: currentLoginStatus.INVALID_DATA});
-                    } else {
-                        this.setState({status: currentLoginStatus.ERROR});
-                    }
+                    this.handleLoginError(error);
                 });
         });
     };
 
 
+    handleLoginSuccess(response, user) {
+        this.props.authenticateUser(response.data.token, user.username);
+        message.success('You have been successfully logged in.', 2);
+        this.props.history.replace('/');
+    }
+
+    handleLoginError(error) {
+        if (error.response.status === 401 || error.response.status === 400) {
+            this.setState({status: currentLoginStatus.INVALID_DATA});
+        } else {
+            this.setState({status: currentLoginStatus.ERROR});
+        }
+    }
+
     renderBody() {
         switch (this.state.status) {
             case currentLoginStatus.LOGIN:
-                return (<div><h3 style={{textAlign: 'center', padding: '5px', fontSize: '20px'}}> LOG IN </h3>
-                    <UserLoginForm onLogin={this.handleLogin} onForgotPassword={
-                        () => this.props.onModuleStatusChange(currentOperation.FORGOT_PASSWORD)}/>
-                    <Button style={{width: '100%'}}
-                            onClick={() => this.props.onModuleStatusChange(currentOperation.REGISTRATION)}> Create New
-                        Account </Button>
-                </div>);
+                return this.renderLoginFormPlaceHolder();
             case currentLoginStatus.WAITING:
-                return (<div style={{textAlign: 'center', padding: '80px'}}>
-                    <Spin indicator={<Icon type="loading" style={{fontSize: 80}} spin/>}/>
-                </div>);
+                return this.renderLoadingSpinner();
             case currentLoginStatus.INVALID_DATA:
-                return (<div style={{textAlign: 'center'}}>
-                    <Result status="error"
-                            style={{padding: '20px'}}
-                            title="Invalid user data!"/>
-                    <br/>
-                    <Button onClick={this.onTryAgain}> Try to Login Again </Button>
-                </div>);
+                return this.renderInvalidDataMessage();
             case currentLoginStatus.ERROR:
-                return (<div style={{textAlign: 'center'}}>
-                    <Result status="warning"
-                            style={{padding: '20px'}}
-                            subTitle="There are some problems with your operation. Try again later."/>
-                    <Button onClick={this.onTryAgain}> Try to Login Again </Button>
-                </div>);
+                return this.renderErrorMessage();
             default:
                 return null;
         }
+    }
+
+    renderLoginFormPlaceHolder() {
+        return (
+            <div>
+                <h3 style={{textAlign: 'center', padding: '5px', fontSize: '20px'}}> LOG IN </h3>
+                <UserLoginForm onLogin={this.handleLogin} onForgotPassword={
+                    () => this.props.onModuleStatusChange(currentOperation.FORGOT_PASSWORD)}/>
+                <Button style={{width: '100%'}}
+                        onClick={() => this.props.onModuleStatusChange(currentOperation.REGISTRATION)}
+                > Create New Account </Button>
+            </div>
+        );
+    }
+
+    renderLoadingSpinner() {
+        return (
+            <div style={{textAlign: 'center', padding: '80px'}}>
+                <Spin indicator={<Icon type="loading" style={{fontSize: 80}} spin/>}/>
+            </div>
+        );
+    }
+
+    renderInvalidDataMessage() {
+        return (
+            <div style={{textAlign: 'center'}}>
+                <Result status="error"
+                        style={{padding: '20px'}}
+                        title="Invalid user data!"/>
+                <br/>
+                <Button onClick={this.onTryAgain}> Try to Login Again </Button>
+            </div>
+        );
+    }
+
+    renderErrorMessage() {
+        return (
+            <div style={{textAlign: 'center'}}>
+                <Result status="warning"
+                        style={{padding: '20px'}}
+                        subTitle="There are some problems with your operation. Try again later."/>
+                <Button onClick={this.onTryAgain}> Try to Login Again </Button>
+            </div>
+        );
     }
 
     render() {

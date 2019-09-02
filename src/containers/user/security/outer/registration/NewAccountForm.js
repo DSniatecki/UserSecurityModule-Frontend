@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Button, Checkbox, Form, Input,} from 'antd';
+import {Button, Checkbox, Form, Input} from 'antd';
 import {formItemLayout, tailFormAgreementCheckBoxLayout, tailFormItemLayout} from "./NewAccountFormLayout";
 import AgreementModal from "../../../../../components/layout/AgreementModal";
+import axios from "axios";
 
 
 class RegistrationForm extends Component {
@@ -33,6 +34,49 @@ class RegistrationForm extends Component {
             callback();
         }
     };
+
+    validateNickname = async (rule, value, callback) =>{
+        console.log('-----')
+        if (value) {
+            await axios.get(`/users/check/notexists?username=${value}`)
+                .then((response) => {
+                    console.log(response)
+                    callback();
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                    if (error.response.status === 401 || error.response.status===400) {
+                        callback(error.response.data.message);
+                    }else{
+                        callback();
+                    }
+                });
+        } else {
+            callback();
+        }
+    };
+
+    validateEmail = async (rule, value, callback) =>{
+        console.log('===================>>>>>>>>>>>>>>>>>>>>>>>>')
+        if (value) {
+            await axios.get(`/users/check/notexists?email=${value}`)
+                .then((response) => {
+                    console.log(response)
+                    callback();
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                    if (error.response.status === 401 || error.response.status===400) {
+                        callback(error.response.data.message);
+                    }else{
+                        callback();
+                    }
+                });
+        } else {
+            callback();
+        }
+    };
+
 
     validateToNextPassword = (rule, value, callback) => {
         const {form} = this.props;
@@ -67,11 +111,14 @@ class RegistrationForm extends Component {
                             },
                             {
                                 min: 4,
-                                message: 'Must contain at least 4 characters!',
+                                message: 'Must contain at least 4 characters!'
                             },
                             {
                                 max: 20,
-                                message: 'Cannot contain more than 20 characters!',
+                                message: 'Cannot contain more than 20 characters!'
+                            },
+                            {
+                                validator: this.validateNickname
                             }
                     ],
                     })(<Input/>)}
@@ -91,6 +138,9 @@ class RegistrationForm extends Component {
                             {
                                 max: 80,
                                 message: 'Cannot contain more than 80 characters!',
+                            },
+                            {
+                                validator: this.validateEmail
                             }
                         ],
                     })(<Input/>)}

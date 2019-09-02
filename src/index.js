@@ -8,7 +8,7 @@ import store from "./redux/store/store";
 import {BrowserRouter} from "react-router-dom";
 import axios from "axios";
 
-axios.defaults.baseURL=""//baseURL
+axios.defaults.baseURL=''//;
 
 const app =(
     <BrowserRouter>

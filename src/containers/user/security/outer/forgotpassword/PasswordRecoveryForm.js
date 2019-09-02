@@ -57,7 +57,6 @@ class BasicPasswordRecoveryForm extends Component {
         callback();
     };
 
-
     render() {
         const {getFieldDecorator} = this.props.form;
         return (

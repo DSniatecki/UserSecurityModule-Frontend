@@ -3,6 +3,7 @@ import {Button, Checkbox, Form, Icon, Input} from 'antd';
 
 
 class BasicUserLoginForm extends Component {
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -20,7 +21,9 @@ class BasicUserLoginForm extends Component {
                 className="login-form">
                 <Form.Item>
                     {getFieldDecorator('username', {
-                        rules: [{ required: true, message: ' ' }],
+                        rules: [
+                                { required: true, message: ' ' }
+                            ],
                     })(
                         <Input
                             prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -30,7 +33,9 @@ class BasicUserLoginForm extends Component {
                 </Form.Item>
                 <Form.Item>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: ' ' }],
+                        rules: [
+                            { required: true, message: ' ' }
+                        ],
                     })(
                         <Input
                             prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -49,9 +54,8 @@ class BasicUserLoginForm extends Component {
                     <Button style={{width: '100%'}}
                             type="primary"
                             htmlType="submit"
-                            className="login-form-button">
-                        Log in
-                    </Button>
+                            className="login-form-button"
+                    > Log in </Button>
                 </Form.Item>
             </Form>
         );
