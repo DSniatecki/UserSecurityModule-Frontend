@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Checkbox, Form, Input} from 'antd';
 import {formItemLayout, tailFormAgreementCheckBoxLayout, tailFormItemLayout} from "./NewAccountFormLayout";
 import AgreementModal from "../../../../../components/layout/AgreementModal";
-import axios from "axios";
+import {validateEmail, validateNickname} from "./NewAccountFormValidators";
 
 
 class RegistrationForm extends Component {
@@ -35,49 +35,6 @@ class RegistrationForm extends Component {
         }
     };
 
-    validateNickname = async (rule, value, callback) =>{
-        console.log('-----')
-        if (value) {
-            await axios.get(`/users/check/notexists?username=${value}`)
-                .then((response) => {
-                    console.log(response)
-                    callback();
-                })
-                .catch((error) => {
-                    console.log(error.response);
-                    if (error.response.status === 401 || error.response.status===400) {
-                        callback(error.response.data.message);
-                    }else{
-                        callback();
-                    }
-                });
-        } else {
-            callback();
-        }
-    };
-
-    validateEmail = async (rule, value, callback) =>{
-        console.log('===================>>>>>>>>>>>>>>>>>>>>>>>>')
-        if (value) {
-            await axios.get(`/users/check/notexists?email=${value}`)
-                .then((response) => {
-                    console.log(response)
-                    callback();
-                })
-                .catch((error) => {
-                    console.log(error.response);
-                    if (error.response.status === 401 || error.response.status===400) {
-                        callback(error.response.data.message);
-                    }else{
-                        callback();
-                    }
-                });
-        } else {
-            callback();
-        }
-    };
-
-
     validateToNextPassword = (rule, value, callback) => {
         const {form} = this.props;
         if (value && this.state.confirmDirty) {
@@ -98,56 +55,29 @@ class RegistrationForm extends Component {
     render() {
         const {getFieldDecorator} = this.props.form;
         console.log(this.props);
+        console.log(this.state);
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Nickname">
                     {getFieldDecorator('nickname', {
-                        initialValue: this.props.currentAccount.nickname,
                         rules: [
                             {
-                                required: true,
-                                message: 'Please input your nickname!',
-                                whitespace: true
-                            },
-                            {
-                                min: 4,
-                                message: 'Must contain at least 4 characters!'
-                            },
-                            {
-                                max: 20,
-                                message: 'Cannot contain more than 20 characters!'
-                            },
-                            {
-                                validator: this.validateNickname
+                                validator: validateNickname
                             }
                     ],
                     })(<Input/>)}
                 </Form.Item>
                 <Form.Item label="E-mail">
                     {getFieldDecorator('email', {
-                        initialValue: this.props.currentAccount.email,
                         rules: [
                             {
-                                type: 'email',
-                                message: 'The input is not valid E-mail!',
-                            },
-                            {
-                                required: true,
-                                message: 'Please input your E-mail!',
-                            },
-                            {
-                                max: 80,
-                                message: 'Cannot contain more than 80 characters!',
-                            },
-                            {
-                                validator: this.validateEmail
+                                validator: validateEmail
                             }
                         ],
                     })(<Input/>)}
                 </Form.Item>
                 <Form.Item label="Password" hasFeedback>
                     {getFieldDecorator('password', {
-                        initialValue: this.props.currentAccount.password,
                         rules: [
                             {
                                 required: true,
@@ -169,7 +99,6 @@ class RegistrationForm extends Component {
                 </Form.Item>
                 <Form.Item label="Confirm Password" hasFeedback >
                     {getFieldDecorator('confirm', {
-                        initialValue: this.props.currentAccount.confirm,
                         rules: [
                             {
                                 required: true,
@@ -187,7 +116,6 @@ class RegistrationForm extends Component {
                 </Form.Item>
                 <Form.Item {...tailFormAgreementCheckBoxLayout}>
                     {getFieldDecorator('agreement', {
-                        initialValue: this.props.currentAccount.agreement,
                         valuePropName: 'checked',
                         rules: [
                             { validator: this.checkCheckBox }
@@ -211,7 +139,6 @@ class RegistrationForm extends Component {
 export const NewAccountForm = Form.create({
     mapPropsToFields(props) {
         return {
-            currentAccount: Form.createFormField({...props.currentAccount, value: props.currentAccount.value}),
             onCreate: Form.createFormField({...props.onCreate, value: props.onCreate.value }),
         }
     },

@@ -42,7 +42,9 @@ class UserLogin extends Component {
     }
 
     handleLoginError(error) {
-        if (error.response.status === 401 || error.response.status === 400) {
+        if (!error.response) {
+            this.setState({status: currentLoginStatus.ERROR});
+        } else if (error.response.status === 401 || error.response.status === 400) {
             this.setState({status: currentLoginStatus.INVALID_DATA});
         } else {
             this.setState({status: currentLoginStatus.ERROR});
