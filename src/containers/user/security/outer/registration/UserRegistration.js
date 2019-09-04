@@ -22,11 +22,10 @@ class UserRegistration extends Component {
     };
 
     handleSubmit = (account) => {
-        console.log('xxxxxxxxxxxxxxxxxxxxx22222222222222222');
         this.setState({status: currentRegistrationStatus.WAITING, currentAccount: account}, () => {
             axios.post('/users/signup', {
                 username: account.nickname,
-                email: account.email,
+                email: account.email.toLowerCase(),
                 password: account.password
             })
                 .then((response) => {

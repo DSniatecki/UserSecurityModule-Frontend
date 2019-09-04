@@ -32,7 +32,7 @@ export const validateEmail = async (rule, value, callback) =>{
 const remotelyValidateNickname = async (rule, value, callback) =>{
     console.log('-----');
     if (value) {
-        await axios.get(`/users/check/notexists?username=${value}`)
+        await axios.get(`/users/check/username/${value}`)
             .then((response) => {
                 callback();
             })
@@ -47,7 +47,7 @@ const remotelyValidateNickname = async (rule, value, callback) =>{
 
 const remotelyValidateEmail = async (rule, value, callback) =>{
     if (value){
-        await axios.get(`/users/check/notexists?email=${value}`)
+        await axios.get(`/users/check/email/${value}`)
             .then((response) => {
                 callback();
             })
