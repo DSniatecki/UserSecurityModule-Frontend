@@ -37,7 +37,7 @@ class UserLogin extends Component {
 
     handleLoginSuccess(response, user) {
         this.props.authenticateUser(response.data.token, user.username);
-        message.success('You have been successfully logged in.', 2);
+        message.success(`You have been successfully logged in as "${user.username}".`, 2);
         this.props.history.replace('/');
     }
 

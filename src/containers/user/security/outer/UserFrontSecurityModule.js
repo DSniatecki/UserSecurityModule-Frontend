@@ -12,51 +12,63 @@ export const currentOperation = {
 
 class UserFrontSecurityModule extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        if((this.props.location.hash==='#create-account')){
+        if (this.props.location.pathname === '/signup') {
             this.state = {status: currentOperation.REGISTRATION}
-        }else {
+        } else {
             this.state = {status: currentOperation.LOGIN}
         }
     }
 
-    changeModuleStatus = (newStatus) =>{
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.location !== this.props.location) {
+            if (this.props.location.pathname === '/signup') {
+                this.setState({status: currentOperation.REGISTRATION});
+            } else {
+                this.setState({status: currentOperation.LOGIN});
+            }
+
+        }
+    }
+
+    changeModuleStatus = (newStatus) => {
         this.setState({
-            status : newStatus
+            status: newStatus
         })
     };
-
 
     renderBody() {
         switch (this.state.status) {
             case currentOperation.LOGIN:
                 return (<div>
-                            <UserLogin onModuleStatusChange={this.changeModuleStatus}/>
-                        </div>);
+                    <UserLogin onModuleStatusChange={this.changeModuleStatus}/>
+                </div>);
             case currentOperation.REGISTRATION:
                 return (<UserRegistration onModuleStatusChange={this.changeModuleStatus}/>);
             case currentOperation.FORGOT_PASSWORD:
                 return (<PasswordRecovery onModuleStatusChange={this.changeModuleStatus}/>);
-            default: return null
+            default:
+                return null
         }
     }
 
     render() {
-        console.log(this.componentWidth);
         let body = this.renderBody();
-        console.log(this.props);
         return (
-            <div
-                style={{
-                minWidth: '280px',
-                maxWidth: '500px',
-                margin: 'auto',
-                border: '1px solid #d5d5d5',
-                borderRadius: 10,
-                padding: '10px 23px 23px 23px'
-            }}>
-                {body}
+            <div>
+                <div
+                    style={{
+                        boxShadow: '0 0 30px #f3f1f1',
+                        minWidth: '280px',
+                        maxWidth: '500px',
+                        margin: 'auto',
+                        border: '1px solid #d5d5d5',
+                        borderRadius: 10,
+                        padding: '10px 23px 23px 23px'
+                    }}>
+                    {body}
+                </div>
             </div>
         );
     }

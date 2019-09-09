@@ -30,7 +30,6 @@ export const validateEmail = async (rule, value, callback) =>{
 
 
 const remotelyValidateNickname = async (rule, value, callback) =>{
-    console.log('-----');
     if (value) {
         await axios.get(`/users/check/username/${value}`)
             .then((response) => {
@@ -60,8 +59,6 @@ const remotelyValidateEmail = async (rule, value, callback) =>{
 };
 
 const handleRemoteValidationErrorResponse = (error, callback) => {
-    console.log('00000')
-    console.log(error.response);
     if (!error.response) {
         callback();
     }else if (error.response.status === 401 || error.response.status === 400) {

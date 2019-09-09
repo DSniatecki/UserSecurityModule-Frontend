@@ -54,11 +54,9 @@ class RegistrationForm extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        console.log(this.props);
-        console.log(this.state);
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                <Form.Item label="Nickname">
+                <Form.Item label="Nickname" hasFeedback>
                     {getFieldDecorator('nickname', {
                         rules: [
                             {
@@ -67,7 +65,7 @@ class RegistrationForm extends Component {
                     ],
                     })(<Input/>)}
                 </Form.Item>
-                <Form.Item label="E-mail">
+                <Form.Item label="E-mail" hasFeedback>
                     {getFieldDecorator('email', {
                         rules: [
                             {

@@ -109,7 +109,7 @@ class UserRegistration extends Component {
     }
 
     renderProperReturnButton(){
-        if (this.props.location.hash === '') {
+        if (this.props.location.pathname === '/signin') {
             return (
                 <Button style={{width: '100%'}}
                         onClick={() => this.props.onModuleStatusChange(currentOperation.LOGIN)}> Return </Button>

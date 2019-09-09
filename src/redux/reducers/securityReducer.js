@@ -20,7 +20,8 @@ const securityReducer = (state = initialState, action) =>{
             return{
                 ...state,
                 isUserAuthenticated: false,
-                securityToken: ''
+                securityToken: '',
+                username: ''
             };
         default:
             return state;
