@@ -20,7 +20,7 @@ export const validateEmail = async (rule, value, callback) =>{
         callback('Must contain at least 4 characters!')
     }else if( value.length > 80){
         callback('Cannot contain more than 80 characters!')
-    }else if( !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+    }else if( !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
         callback('Please input valid email!');
     }else {
             await remotelyValidateEmail(rule, value, callback);

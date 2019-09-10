@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import '../../components/layout/navbar/Navbar.css';
 import {connect} from "react-redux";
-import {Menu, message} from "antd";
+import {Icon, Menu, message} from "antd";
 import {Link} from "react-router-dom";
 import {logoutUser} from "../../redux/actions/securityActions";
 
@@ -25,10 +25,10 @@ class LoggedUserNavMenu extends Component {
                                 <span>{this.props.username}</span>
                             }>
                             <Menu.Item key="1">
-                                <span> Account </span>
+                                <span> <Icon type="user" /> Account </span>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <Link to="/" onClick={this.handleLogout}> Logout </Link>
+                                <Link to="/" onClick={this.handleLogout}> <Icon type="logout" /> Logout </Link>
                             </Menu.Item>
                         </SubMenu>
                 </Menu>

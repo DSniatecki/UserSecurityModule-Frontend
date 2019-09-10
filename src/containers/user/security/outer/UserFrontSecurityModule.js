@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import './UserFrontSecurityModule.css';
 import UserLogin from "./login/UserLogin";
 import UserRegistration from "./registration/UserRegistration";
 import PasswordRecovery from "./forgotpassword/PasswordRecovery";
@@ -58,15 +59,7 @@ class UserFrontSecurityModule extends Component {
         return (
             <div>
                 <div
-                    style={{
-                        boxShadow: '0 0 30px #f3f1f1',
-                        minWidth: '280px',
-                        maxWidth: '500px',
-                        margin: 'auto',
-                        border: '1px solid #d5d5d5',
-                        borderRadius: 10,
-                        padding: '10px 23px 23px 23px'
-                    }}>
+                    className="UserFrontSecurityModule">
                     {body}
                 </div>
             </div>
