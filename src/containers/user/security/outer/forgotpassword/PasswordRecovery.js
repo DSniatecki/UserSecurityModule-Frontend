@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {currentOperation} from "../UserFrontSecurityModule";
-import {Button, Icon, Result, Spin} from "antd";
+import {Alert, Button, Icon, notification, Result, Spin} from "antd";
 import {PasswordRecoveryForm} from "./PasswordRecoveryForm";
 
 
@@ -33,6 +33,8 @@ class PasswordRecovery extends Component {
             case currentPasswordRecoveryStatus.RECOVERY:
                 return (<div>
                             <h3 style={{textAlign: 'center', padding:'5px', fontSize: '20px'}}> Recover Password </h3>
+                            <Alert message="The operation is temporarily unavailable" type="warning" showIcon />
+                        <br/>
                             <PasswordRecoveryForm onConfirmRecovery={this.handlePasswordRecovery}/>
                             <Button style={{width: '100%'}}
                                     onClick={() => this.props.onModuleStatusChange(currentOperation.LOGIN)}> Return </Button>

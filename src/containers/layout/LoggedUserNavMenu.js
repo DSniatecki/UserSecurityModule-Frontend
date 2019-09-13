@@ -22,12 +22,15 @@ class LoggedUserNavMenu extends Component {
                         <SubMenu
                             key="sub1"
                             title={
-                                <span>{this.props.username}</span>
+                                <span> <Icon type="user" /> {this.props.username}</span>
                             }>
                             <Menu.Item key="1">
-                                <span> <Icon type="user" /> Account </span>
+                                <Link to="/account" onClick={this.props.onClick}> <Icon type="idcard" /> Account </Link>
                             </Menu.Item>
                             <Menu.Item key="2">
+                                <Link to="/account/settings" onClick={this.props.onClick}> <Icon type="setting" /> Settings </Link>
+                            </Menu.Item>
+                            <Menu.Item key="3">
                                 <Link to="/" onClick={this.handleLogout}> <Icon type="logout" /> Logout </Link>
                             </Menu.Item>
                         </SubMenu>

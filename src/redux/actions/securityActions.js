@@ -14,7 +14,7 @@ export const logoutUser = () =>({
     type: securityActionTypes.LOGOUT_USER,
 });
 
-// MIDDLEWATE
+// MIDDLEWARE
 // export const handlePageChange = (pageNumber)=>{
 //     return (dispatch, getState) =>{
 //         dispatch(changePageNumber(pageNumber));
